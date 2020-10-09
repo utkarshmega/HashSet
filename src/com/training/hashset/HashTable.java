@@ -69,6 +69,36 @@ public class HashTable<K, V> {
 		newNode.next = head;
 		bucketArray.set(bucketIndex, newNode);
 	}
+	
+	/** TO remove the target element from the phrase
+	 */
+	public V remove(K key) 
+    { 
+        int bucketIndex = getBucketIndex(key); 
+   
+        MyMapNode<K, V> head = bucketArray.get(bucketIndex); 
+   
+        MyMapNode<K, V> prev = null; 
+        while (head != null) 
+        { 
+            if (head.key.equals(key)) 
+                break; 
+   
+            prev = head; 
+            head = head.next; 
+        }  
+        if (head == null) 
+            return null; 
+   
+        size--; 
+   
+        if (prev != null) 
+            prev.next = head.next; 
+        else
+            bucketArray.set(bucketIndex, head.next); 
+  
+        return head.value; 
+    } 
 
 	public static void main(String[] args) {
 		
@@ -86,7 +116,12 @@ public class HashTable<K, V> {
 		}
 		for(String a : arr){
             System.out.println(a + " ---> " + hashMap.get(a));
-        }		
+        }
+		hashMap.remove("avoidable");
+		System.out.println("\n After removing the avoidable key\n");
+		for(String a : arr){
+            System.out.println(a + " ---> " + hashMap.get(a));
+        }
 		
 	}
 
