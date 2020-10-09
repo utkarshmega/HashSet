@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class HashTable<K, V> {
 
-	public int bucketSize = 10;
+	public int bucketSize;
 	private ArrayList<MyMapNode<K, V>> bucketArray;
 	private int size;
 
 	public HashTable() {
 		bucketArray = new ArrayList<>();
-		bucketSize = 10;
+		bucketSize = 20;
 		size = 0;
 
 		for (int i = 0; i < bucketSize; i++)
@@ -29,9 +29,12 @@ public class HashTable<K, V> {
 	// for a key
 	private int getBucketIndex(K key) {
 		int hashCode = key.hashCode();
+		if(hashCode<0)
+			hashCode *= (-1);
 		int index = hashCode % bucketSize;
 		return index;
-	}
+		
+	}	
 
 	// to find the value associated with the string
 	public V get(K key) {
@@ -69,7 +72,7 @@ public class HashTable<K, V> {
 
 	public static void main(String[] args) {
 		
-		String s = "To be or not to be";
+		String s = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
 		String arr[] = s.split(" ");
 		HashTable<String, Integer> hashMap = new HashTable<>();
 		for(String str : arr)
